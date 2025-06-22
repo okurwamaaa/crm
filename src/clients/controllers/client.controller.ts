@@ -17,12 +17,10 @@ import { CreateClientDto } from '../dto/create-client.dto';
 import { UpdateClientDto } from '../dto/update-client.dto';
 import { ClientResponseDto } from '../dto/client-response.dto';
 import { Client } from '../models/client.model';
-
 @ApiTags('Clients')
 @Controller('clients')
 export class ClientController {
   constructor(private readonly clientService: ClientService) {}
-
   @Post()
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Create a new client' })
@@ -32,7 +30,6 @@ export class ClientController {
   async createClient(@Body() createClientDto: CreateClientDto): Promise<Client> {
     return this.clientService.createClient(createClientDto);
   }
-
   @Get()
   @ApiOperation({ summary: 'Get all clients with pagination' })
   @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number' })
@@ -50,10 +47,8 @@ export class ClientController {
   ) {
     const filter = status ? { status } : undefined;
     const sort = sortBy ? { field: sortBy, direction: sortOrder } : undefined;
-    
     return this.clientService.getClients(page, limit, filter, sort);
   }
-
   @Get(':id')
   @ApiOperation({ summary: 'Get a client by ID' })
   @ApiResponse({ status: 200, description: 'Client retrieved successfully', type: ClientResponseDto })
@@ -61,7 +56,6 @@ export class ClientController {
   async getClient(@Param('id', ParseIntPipe) id: number): Promise<Client> {
     return this.clientService.getClient(id);
   }
-
   @Put(':id')
   @ApiOperation({ summary: 'Update a client' })
   @ApiResponse({ status: 200, description: 'Client updated successfully', type: ClientResponseDto })
@@ -73,7 +67,6 @@ export class ClientController {
   ): Promise<Client> {
     return this.clientService.updateClient(id, updateClientDto);
   }
-
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Delete a client' })

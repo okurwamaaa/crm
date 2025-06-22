@@ -9,7 +9,6 @@ export interface IBaseRepository<T> {
   exists(id: string | number): Promise<boolean>;
   count(filter?: Partial<T>): Promise<number>;
 }
-
 export interface IPaginatedRepository<T> extends IBaseRepository<T> {
   findPaginated(
     page: number,
@@ -24,7 +23,6 @@ export interface IPaginatedRepository<T> extends IBaseRepository<T> {
     totalPages: number;
   }>;
 }
-
 export interface ISearchableRepository<T> extends IBaseRepository<T> {
   search(query: string, fields: (keyof T)[]): Promise<T[]>;
 } 

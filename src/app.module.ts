@@ -5,7 +5,6 @@ import { SequelizeModule } from "@nestjs/sequelize";
 import { CacheModule } from "@nestjs/cache-manager";
 import { getCacheConfig } from "./config/cache.config";
 import { getSequelizeConfig } from "./config/database.config";
-
 @Module({
   imports: [
     ConfigModule.forRoot(config),

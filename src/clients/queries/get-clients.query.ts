@@ -1,6 +1,5 @@
 import { IQuery } from '@nestjs/cqrs';
 import { Client } from '../models/client.model';
-
 export class GetClientsQuery implements IQuery {
   constructor(
     public readonly page: number = 1,

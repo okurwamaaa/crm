@@ -13,7 +13,6 @@ import { Client } from '../models/client.model';
 import { SERVICE_TOKENS } from '../../common/constants/injection-tokens';
 import { CacheProxy as CacheProxyDecorator } from '../../common/decorators/cache-proxy.decorator';
 import { LoggerDecorator } from '../../common/decorators/logger-decorator';
-
 @Injectable()
 export class ClientService {
   constructor(
@@ -21,8 +20,6 @@ export class ClientService {
     private readonly queryBus: QueryBus,
     @Inject(CACHE_MANAGER) private cacheManager: Cache
   ) {}
-
-  // Method using logger decorator (GoF Decorator pattern)
   @LoggerDecorator({
     level: 'log',
     includeParams: true,
@@ -31,8 +28,6 @@ export class ClientService {
   async createClient(createClientDto: CreateClientDto): Promise<Client> {
     return this.commandBus.execute(new CreateClientCommand(createClientDto));
   }
-
-  // Method using cache proxy decorator (GoF Proxy pattern)
   @CacheProxyDecorator({
     ttl: 300,
     key: 'client:update',
@@ -41,7 +36,6 @@ export class ClientService {
   async updateClient(id: number, updateClientDto: UpdateClientDto): Promise<Client> {
     return this.commandBus.execute(new UpdateClientCommand(id, updateClientDto));
   }
-
   @LoggerDecorator({
     level: 'warn',
     includeParams: true,
@@ -50,8 +44,6 @@ export class ClientService {
   async deleteClient(id: number): Promise<boolean> {
     return this.commandBus.execute(new DeleteClientCommand(id));
   }
-
-  // Method using cache proxy decorator
   @CacheProxyDecorator({
     ttl: 600,
     prefix: 'client-service'
@@ -59,8 +51,6 @@ export class ClientService {
   async getClient(id: number): Promise<Client> {
     return this.queryBus.execute(new GetClientQuery(id));
   }
-
-  // Method using logger decorator
   @LoggerDecorator({
     level: 'log',
     includeParams: true,
@@ -74,8 +64,6 @@ export class ClientService {
   ) {
     return this.queryBus.execute(new GetClientsQuery(page, limit, filter, sort));
   }
-
-  // Method using both patterns together
   @CacheProxyDecorator({ ttl: 1800, prefix: 'client-service' })
   @LoggerDecorator({ 
     level: 'debug', 

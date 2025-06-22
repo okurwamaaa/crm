@@ -1,6 +1,5 @@
 import { ConfigService } from "@nestjs/config"
 import { redisStore } from "cache-manager-redis-store"
-
 export const getCacheConfig = async (configService: ConfigService) => {
   const store = await redisStore({
     socket: {

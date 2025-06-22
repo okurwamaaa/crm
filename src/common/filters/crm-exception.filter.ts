@@ -7,18 +7,15 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { CrmException } from '../exceptions/crm.exception';
-
 @Catch()
 export class CrmExceptionFilter implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
-
     let status = HttpStatus.INTERNAL_SERVER_ERROR;
     let message = 'Internal server error';
     let code = 'INTERNAL_SERVER_ERROR';
-
     if (exception instanceof CrmException) {
       status = exception.statusCode;
       message = exception.message;
@@ -34,7 +31,6 @@ export class CrmExceptionFilter implements ExceptionFilter {
       message = exception.message;
       code = 'ERROR';
     }
-
     const errorResponse = {
       statusCode: status,
       timestamp: new Date().toISOString(),
@@ -42,7 +38,6 @@ export class CrmExceptionFilter implements ExceptionFilter {
       message,
       code,
     };
-
     response.status(status).json(errorResponse);
   }
 } 

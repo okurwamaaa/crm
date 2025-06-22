@@ -11,18 +11,15 @@ import { DeleteClientHandler } from './handlers/delete-client.handler';
 import { GetClientHandler } from './handlers/get-client.handler';
 import { GetClientsHandler } from './handlers/get-clients.handler';
 import { REPOSITORY_TOKENS, SERVICE_TOKENS } from '../common/constants/injection-tokens';
-
 const CommandHandlers = [
   CreateClientHandler,
   UpdateClientHandler,
   DeleteClientHandler,
 ];
-
 const QueryHandlers = [
   GetClientHandler,
   GetClientsHandler,
 ];
-
 @Module({
   imports: [
     CqrsModule,
