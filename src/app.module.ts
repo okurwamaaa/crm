@@ -5,6 +5,9 @@ import { SequelizeModule } from "@nestjs/sequelize";
 import { CacheModule } from "@nestjs/cache-manager";
 import { getCacheConfig } from "./config/cache.config";
 import { getSequelizeConfig } from "./config/database.config";
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot(config),
@@ -18,7 +21,9 @@ import { getSequelizeConfig } from "./config/database.config";
       imports: [ConfigModule],
       useFactory: getCacheConfig,
       inject: [ConfigService]
-    })
+    }),
+    AuthModule,
+    UsersModule,
   ],
   exports: [ConfigModule]
 })

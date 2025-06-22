@@ -1,4 +1,4 @@
-import { IsString, IsEmail, IsOptional, IsEnum } from 'class-validator';
+import { IsString, IsEmail, IsOptional, IsEnum, IsUUID } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 export class CreateClientDto {
   @ApiProperty({ description: 'Client name' })
@@ -23,4 +23,7 @@ export class CreateClientDto {
   @IsOptional()
   @IsEnum(['ACTIVE', 'INACTIVE', 'PROSPECT'])
   status?: string;
+  @IsUUID()
+  @IsOptional()
+  userId?: string;
 } 
